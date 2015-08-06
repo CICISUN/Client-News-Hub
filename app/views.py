@@ -14,5 +14,7 @@ def home(request):
     all_entries =  NewsFeeds.objects.all()
     data = serializers.serialize('json',list(all_entries))
     return HttpResponse(data, content_type="json")
+
 def index(request):
+
     return render_to_response('index.html')

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Client-News-Hub.iml" filepath="$PROJECT_DIR$/.idea/Client-News-Hub.iml" />
       <module fileurl="file://$PROJECT_DIR$/../cnh/.idea/cnh.iml" filepath="$PROJECT_DIR$/../cnh/.idea/cnh.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../eb_django_app/.idea/eb_django_app.iml" filepath="$PROJECT_DIR$/../eb_django_app/.idea/eb_django_app.iml" />
     </modules>
   </component>
 </project>

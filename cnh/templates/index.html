@@ -1,10 +1,298 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
     <title>CNH Server</title>
+    <meta name="description" content="Meet the next generation of News-Feed generator for Hooklogic.">
+    <meta name="viewport" content="width=device-width, minimal-ui">
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="SNH"/>
+    <meta property="og:title" content="Introducing CLient News Hub, the fastest way to keep up"/>
+    <meta property="og:description" content="Meet the next generation of News-Feed generator for Hooklogic."/>
+    <meta property="og:image" content="https://sunrise-meet.s3.amazonaws.com/twitter-card.jpeg"/>
+    <!--<meta property="og:url" content="https://sunrise.am/meet"/>-->
+    <meta property="og:type" content="website"/>
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@sunrise"/>
+    <meta name="twitter:creator" content="@sunrise"/>
+    <meta name="twitter:title" content="Meet the next generation of News-Feed generator for Hooklogic."/>
+    <meta name="twitter:description"  content="Meet is a keyboard for Android and iOS that lets you select available time slots in your calendar without leaving the app you’re in and send them to anyone through a simple link, even if they don’t use Sunrise."/>
+    <meta name="twitter:image" content="https://sunrise-meet.s3.amazonaws.com/twitter-card.jpeg"/>
+    <meta name="twitter:url" content="https://sunrise.am/meet"/>
+    {% load staticfiles %}
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="shortcut icon" href="/favicon.png">
+    <link href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
+
+
+    <script src="/static/js/32fa189c.modernizr.js"></script>
+
+    <script src="/static/js/d3e31af9.vendor.js"></script>
+
+    <script src="/static/js/986bf08c.main.js"></script>
+
+    <script src="/static/js/505a9f67.meet.js"></script>
+    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+
+    <link rel="stylesheet" href="/static/css/dd5983a6.vendor.css">
+
+    <link rel="stylesheet" href="/static/css/94ec2bfc.main.css">
+
+    <!-- Load TypeKit -->
+    <script type="text/javascript" src="//use.typekit.net/paq6csi.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+    <!--&lt;!&ndash; Google Analytics &ndash;&gt;-->
+    <!--<script>-->
+    <!--(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
+    <!--(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),-->
+    <!--m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)-->
+    <!--})(window,document,'script','//www.google-analytics.com/analytics.js','ga');-->
+    <!--ga('create', 'UA-62858175-1', 'auto');-->
+    <!--ga('send', 'pageview');-->
+    <!--</script>-->
 </head>
 <body>
-Hi
+
+
+<header class="overview overview--meet-video">
+    <div class="overview--meet-video__content">
+        <div class="overview--meet-video__video">
+            <video preload autoplay loop muted poster="/static/images/8b80e5f2.meet-video-poster.png" class="hide">
+                <source src="/static/videos/b56e1fb4.meet.mp4" type="video/mp4">
+                <source src="/static/videos/aa31dae8.meet.webm" type="video/webm" />
+                <source src="/static/videos/meet.ogv" type="video/ogg" />
+            </video>
+        </div>
+        <div class="overview--meet-video__wrapper" >
+            <div class="row">
+                <div class="small-12 column end text-center">
+                    <h1 class="overview--meet-video__logo">
+                        CNH by Hooklogic
+                    </h1>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="small-12 large-12 column end text-center">
+                    <h2 class="overview--meet-video__description">
+                        Meet the next generation of News-Feed manager for Hooklogic.
+                    </h2>
+                    <a  href="#main" role="button" class="btn btn--get-started" aria-label="Get started">
+                    <img src="http://sunrise.am/images/1de18de8.meet-get-started-btn.svg" class="js-svg-skip" draggable="false" alt="What can we do">
+                </a>
+                </div>
+            </div>
+        </div>
+        <a href="#main" role="button" data-smooth-scroll class="overview--meet-video__arrow show-for-medium-up">
+            <img src="http://sunrise.am/2ab0d9a4.arrow.svg" draggable="false" alt="" class="meet-video__arrow__img">
+        </a>
+    </div>
+</header>
+<script>
+
+
+        $(document).on('click', '#startdemo', function(){
+
+                $('#dt').dataTable( {
+                "initComplete": function (settings, json) {
+                this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=" "></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+
+                column.data().unique().sort().each( function ( d, j ) {
+
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+
+                } );
+            } );
+
+                    },
+                 "processing": true,
+                 "ajax": {
+                 "processing": true,
+                 "url": "{% url 'data' %}",
+                 "dataSrc": ""
+             },
+                "columns": [
+                    { "data": "fields.img" },
+                    { "data": "fields.keyword" },
+                    { "data": "fields.title" },
+                    { "data": "fields.description" },
+                    { "data": "fields.source" },
+                    { "data": "fields.url" },
+                    { "data": "fields.date"}
+                ]
+
+            } );
+
+        });
+
+    </script>
+
+<main id="main" class="main">
+    <section class="overview overview--meet--how-it-works">
+        <div class="row">
+            <div class="small-12 columns">
+                <h1 class="overview--meet--how-it-works__title text-center">How it Works</h1>
+            </div>
+        </div>
+
+        <div class="row show-for-medium-up overview--meet--how-it-works__steps">
+            <div class="medium-4 columns text-center">
+                <h4><img src="http://sunrise.am/images/3055d26f.meet-step-1.svg" class="js-svg-skip" alt="1"></h4>
+            </div>
+            <div class="medium-4 columns text-center">
+                <h4><img src="http://sunrise.am/images/924d4169.meet-step-2.svg" class="js-svg-skip" alt="2"></h4>
+            </div>
+            <div class="medium-4 columns text-center">
+                <h4><img src="http://sunrise.am/images/8c1bc59c.meet-step-3.svg" class="js-svg-skip" alt="3"></h4>
+            </div>
+        </div>
+
+        <div class="row show-for-medium-up">
+            <div class="small-12 medium-4 columns">
+                <div class="overview--meet__feature text-center">
+
+                    <h3 class="overview--meet__feature__title">Keyword Selection</h3>
+                    <p class="overview--meet__feature__description">
+                        Keywords are auto-magically added to the DB corresponding to Clients/Campaigns<br>
+                        Sales/Marketing Teams are able to add custom keywords to the DB
+                    </p>
+                </div>
+            </div>
+            <div class="small-12 medium-4 columns">
+                <div class="overview--meet__feature text-center">
+
+                    <h3 class="overview--meet__feature__title">Web Crawling</h3>
+                    <p class="overview--meet__feature__description">
+                        CNH auto-magically integrates multiple sources to get recent news about our clients. <br>
+                        CNH also adds all the news into the DB.
+                    </p>
+                </div>
+            </div>
+            <div class="small-12 medium-4 columns">
+                <div class="overview--meet__feature text-center">
+
+                    <h3 class="overview--meet__feature__title">Enjoy the News</h3>
+                    <p class="overview--meet__feature__description">
+                        User Logs on to RSX, with their clients' news right in front of them!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="overview overview--meet--mobile overview--meet--mobile--keyboard small-only-text-center">
+        <div class="row overview--meet__content">
+            <div class="small-12 medium-7 columns">
+                <div class="overview--meet__content__body small-12 medium-7">
+                    <h1 class="overview--meet__content__title">
+                        News in a flash.
+                    </h1>
+                    <p class="overview--meet__content__description">
+                        See when you're available right from your keyboard and select a client in RSX, we provide all you need to keep up with that company. It's that simple.
+                    </p>
+                </div>
+            </div>
+            <div class="small-12 medium-5 columns">
+                <img src="/static/images/new" draggable="false" class="overview--meet__content__img" alt="" style="height:487px; width:550px;">
+            </div>
+        </div>
+    </section>
+
+    <section class="overview overview--meet--mobile overview--meet--mobile--rsvp small-only-text-center">
+        <div class="row overview--meet__content">
+            <div class="medium-5 columns show-for-medium-up">
+                <img src="/static/images/new2" style="height:287px; width:550px;" draggable="false" class="overview--meet__content__img" alt="">
+            </div>
+            <div class="small-12 medium-7 columns">
+                <div class="overview--meet__content__body small-12 medium-7 medium-offset-5">
+                    <h1 class="overview--meet__content__title">
+                        A better way to keep up with everything.
+                    </h1>
+                    <p class="overview--meet__content__description">
+                        The news can be easily searched and filtered, making keeping up a one-step effort for all.
+                    </p>
+                </div>
+            </div>
+            <div class="small-12 medium-5 columns show-for-small-only">
+                <img src="http://sunrise.am/images/ca1daffe.meet-iphone.png" draggable="false" class="overview--meet__content__img" alt="">
+            </div>
+        </div>
+    </section>
+
+
+</main>
+
+<footer class="footer footer--meet">
+
+    <div class="footer--meet-overview">
+        <div class="row">
+            <div class="small-12 columns end text-center">
+                <h1 class="footer--meet-overview__title text-center">Start Using Client News Hub</h1>
+                <p class="footer--meet-overview__description text-center">
+                    Build by Team Hungry Hyenas, with &hearts;
+                </p>
+                <a id="startdemo" role="button" class="btn btn--get-started" aria-label="Get started">
+                    <img src="http://sunrise.am/images/1de18de8.meet-get-started-btn.svg" class="js-svg-skip" draggable="false" alt="Get Started">
+                </a>
+                <div class="container">
+                    <table id="dt" class="display" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Img</th>
+                            <th>Kwd</th>
+                            <th>Title</th>
+                            <th>Des</th>
+                            <th>Source</th>
+                            <th>url</th>
+                            <th>Date</th>>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="small-12 columns end">
+                <div class="footer--meet-overview__device show-for-medium-up"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-12 column end">
+            <nav role="navigation">
+                <ul class="footer__list text-center">
+                    <li>
+                        <a href="#" target="_blank">
+                            Github
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">
+                            Team
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</footer>
+
+
 </body>
 </html>
